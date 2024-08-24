@@ -1,23 +1,23 @@
 import { createClient } from 'redis';
-import * as dotenv from 'dotenv';
-dotenv.config();
+// import * as dotenv from 'dotenv';
+// dotenv.config();
 
 // Production:
 const client = createClient({
-  username: process.env.REDIS_USER,
-  password: process.env.REDIS_PASSWORD,
+  username: 'red-cm3e4cen7f5s73bnr0dg',
+  password: 'SoO0Cvg9p8qYtdOht5y5u3B0GnLJkisa',
   socket: {
-    host: process.env.REDIS_INERNAL,
+    host: 'redis://red-cm3e4cen7f5s73bnr0dg:6379',
     port: 6379,
-    tls: true,
+    // tls: true,
   },
 });
 
 // Dev:
 // const client = createClient();
 
-client
-  .on('error', error => console.log('Redis client error:', error))
-  .connect();
+client.on('error', error => console.log('Redis client error:', error));
+
+client.connect();
 
 export default client;

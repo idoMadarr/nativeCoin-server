@@ -1,44 +1,20 @@
 "use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 const redis_1 = require("redis");
-const dotenv = __importStar(require("dotenv"));
-dotenv.config();
+// import * as dotenv from 'dotenv';
+// dotenv.config();
 // Production:
 const client = (0, redis_1.createClient)({
-    username: process.env.REDIS_USER,
-    password: process.env.REDIS_PASSWORD,
+    username: 'red-cm3e4cen7f5s73bnr0dg',
+    password: 'SoO0Cvg9p8qYtdOht5y5u3B0GnLJkisa',
     socket: {
-        host: process.env.REDIS_INERNAL,
+        host: 'redis://red-cm3e4cen7f5s73bnr0dg:6379',
         port: 6379,
-        tls: true,
+        // tls: true,
     },
 });
 // Dev:
 // const client = createClient();
-client
-    .on('error', error => console.log('Redis client error:', error))
-    .connect();
+client.on('error', error => console.log('Redis client error:', error));
+client.connect();
 exports.default = client;
