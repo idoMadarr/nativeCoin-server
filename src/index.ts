@@ -1,14 +1,13 @@
 import express from 'express';
 import path from 'path';
 import fs from 'fs';
+import * as dotenv from 'dotenv';
 import socketIO from './services/socketIO';
 import 'express-async-errors';
-import './services/redis';
 import { createCategories, createSymbolsTree } from './utils/createSymbolsTree';
 import { symbolsArray } from './db/symbolsArray.json';
 import symbolsObject from './db/symbolsObject.json';
 import client from './services/redis';
-import * as dotenv from 'dotenv';
 
 dotenv.config();
 const app = express();
