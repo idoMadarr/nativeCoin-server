@@ -16,8 +16,8 @@ const client = createClient({
 // Dev:
 // const client = createClient();
 
-client.on('error', error => console.log('Redis client error:', error));
-
-client.connect();
+client
+  .on('error', error => console.log('Redis client error:', error))
+  .connect();
 
 export default client;
