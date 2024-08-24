@@ -7,9 +7,9 @@ const client = createClient({
   username: 'red-cm3e4cen7f5s73bnr0dg',
   password: 'SoO0Cvg9p8qYtdOht5y5u3B0GnLJkisa',
   socket: {
-    host: 'redis://red-cm3e4cen7f5s73bnr0dg:6379',
+    host: 'oregon-redis.render.com',
     port: 6379,
-    // tls: true,
+    tls: true,
   },
 });
 
