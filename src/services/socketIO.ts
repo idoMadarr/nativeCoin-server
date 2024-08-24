@@ -62,7 +62,7 @@ export default {
 
       // Stop tracking when client disconnects
       socket.on('disconnect', () => {
-        console.log('A user disconnected');
+        console.log(`user disconnected: ${socket.id}`);
         clearInterval(interval);
         client.del(socket.id);
       });

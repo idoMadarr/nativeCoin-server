@@ -1,20 +1,29 @@
 import express from 'express';
+import path from 'path';
+import fs from 'fs';
 import socketIO from './services/socketIO';
 import 'express-async-errors';
 import './services/redis';
-import { createSymbolsTree } from './utils/createSymbolsTree';
-import { symbols } from './db/symbolsArray.json';
+import { createCategories, createSymbolsTree } from './utils/createSymbolsTree';
+import { symbolsArray } from './db/symbolsArray.json';
+import symbolsObject from './db/symbolsObject.json';
 import client from './services/redis';
 
 const app = express();
 app.use(express.json());
 
-app.get('/', (_req, res, _next) => {
-  // @ts-ignore
-  const symbolTree = createSymbolsTree(symbols);
-  return res.send(symbolTree);
+// Middleware to serve static files from 'icons' folder:
+const iconsDir = path.join(__dirname, 'icons');
+app.use('/icons', express.static(iconsDir));
+
+// Fetch initial symbols structure
+app.get('/static', (_req, res) => {
+  const categories = createCategories(symbolsArray);
+  const symbolsList = createSymbolsTree(symbolsArray);
+  return res.send({ symbolsObject, symbolsList, categories });
 });
 
+// Update after user viewable symbols
 app.post('/viewable', async (req, res) => {
   const viewableSymbols = req.body.viewableSymbols;
   const userId = req.body.userId;
@@ -22,10 +31,17 @@ app.post('/viewable', async (req, res) => {
   return res.send({});
 });
 
-app.get('/test2', async (req, res) => {
-  const userId = req.body.userId;
-  const ressult = await client.get(userId);
-  return res.send({ account: ressult });
+// Fetch random icon
+app.get('/random-icon', (req, res) => {
+  fs.readdir(iconsDir, (error, files) => {
+    if (error) return res.status(400).send(error);
+
+    if (!files.length)
+      return res.status(401).send({ message: 'Empty Directory' });
+
+    const randomFile = files[Math.floor(Math.random() * files.length - 1)];
+    res.sendFile(path.join(iconsDir, randomFile));
+  });
 });
 
 const initServer = () => {

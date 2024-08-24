@@ -14,7 +14,5 @@ export interface SymbolType {
 }
 
 export interface SymbolTreeType {
-  [key: string]: {
-    [key: string]: SymbolType;
-  };
+  [key: string]: SymbolType[];
 }
