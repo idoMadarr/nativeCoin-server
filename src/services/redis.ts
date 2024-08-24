@@ -1,13 +1,13 @@
 import { createClient } from 'redis';
-// import * as dotenv from 'dotenv';
-// dotenv.config();
+import * as dotenv from 'dotenv';
+dotenv.config();
 
 // Production:
 const client = createClient({
-  username: 'red-cm3e4cen7f5s73bnr0dg',
-  password: 'SoO0Cvg9p8qYtdOht5y5u3B0GnLJkisa',
+  username: process.env.REDIS_USER,
+  password: process.env.REDIS_PASSWORD,
   socket: {
-    host: 'oregon-redis.render.com',
+    host: process.env.REDIS_HOST,
     port: 6379,
     tls: true,
   },
