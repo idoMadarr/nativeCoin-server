@@ -8,7 +8,9 @@ import { createCategories, createSymbolsTree } from './utils/createSymbolsTree';
 import { symbolsArray } from './db/symbolsArray.json';
 import symbolsObject from './db/symbolsObject.json';
 import client from './services/redis';
+import * as dotenv from 'dotenv';
 
+dotenv.config();
 const app = express();
 app.use(express.json());
 
@@ -46,7 +48,7 @@ app.get('/random-icon', (req, res) => {
 
 const initServer = () => {
   const server = app.listen(3000, () => {
-    console.log(`Server started on port ${3000}`);
+    console.log(`Server started on port ${process.env.PORT}`);
     socketIO.socketInit(server);
   });
 };
