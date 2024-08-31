@@ -76,7 +76,7 @@ app.get('/random-icon', (req, res) => {
     });
 });
 const initServer = () => {
-    const server = app.listen(3000, () => {
+    const server = app.listen(process.env.PORT, () => {
         console.log(`Server started on port ${process.env.PORT}`);
         socketIO_1.default.socketInit(server);
     });
